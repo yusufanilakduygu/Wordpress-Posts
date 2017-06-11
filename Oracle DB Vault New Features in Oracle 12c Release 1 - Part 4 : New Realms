@@ -1,0 +1,61 @@
+SELECT
+	*
+FROM
+	DVSYS.DBA_DV_REALM;
+
+SELECT
+	*
+FROM
+	dvsys.DBA_DV_REALM_OBJECT
+WHERE
+	REALM_NAME = 'Oracle Database Vault';
+
+SELECT
+	*
+FROM
+	dvsys.DBA_DV_REALM_AUTH
+WHERE
+	REALM_NAME = 'Oracle Database Vault';
+
+SELECT
+	*
+FROM
+	dvsys.DBA_DV_REALM_OBJECT
+WHERE
+	REALM_NAME = 'Oracle Default Schema Protection Realm';
+
+	
+SELECT
+	*
+FROM
+	DVSYS.DBA_DV_REALM_AUTH
+WHERE
+	REALM_NAME = 'Oracle Default Schema Protection Realm';
+
+SELECT
+	*
+FROM
+	dvsys.DBA_DV_REALM_OBJECT
+WHERE
+	REALM_NAME = 'Oracle System Privilege and Role Management Realm';
+
+SELECT
+	*
+FROM
+	dvsys.DBA_DV_REALM_AUTH
+WHERE
+	REALM_NAME = 'Oracle System Privilege and Role Management Realm';
+
+SELECT
+	*
+FROM
+	DVSYS.DBA_DV_REALM_OBJECT
+WHERE
+	REALM_NAME = 'Oracle Default Component Protection Realm';
+
+SELECT
+	*
+FROM
+	dvsys.DBA_DV_REALM_AUTH
+WHERE
+	REALM_NAME = 'Oracle Default Component Protection Realm';
