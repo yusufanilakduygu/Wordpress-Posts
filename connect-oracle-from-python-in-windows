@@ -1,0 +1,11 @@
+import cx_Oracle
+dsn_tns = cx_Oracle.makedsn('192.200.11.9' , 1521, 'DB3')
+connection = cx_Oracle.Connection('system','oracle',dsn_tns)
+ver=connection.version
+print('DB version : '+ ver)
+cur=connection.cursor()
+cur.execute('Select name from v$database')
+for result in cur:
+    print('DB Name : ' + result[0])
+cur.close()
+connection.close
