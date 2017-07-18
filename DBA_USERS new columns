@@ -5,3 +5,9 @@ column Common format a5
 set pagesize 200
 select username,common from dba_users;
 
+/* Query Last_login Column */
+
+column username format a30
+column last_login format 20
+set pagesize 200
+select username,to_char(last_login,'dd-mm-yyyy hh24:mi')  last_login from dba_users;
