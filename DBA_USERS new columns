@@ -11,3 +11,52 @@ column username format a30
 column last_login format 20
 set pagesize 200
 select username,to_char(last_login,'dd-mm-yyyy hh24:mi')  last_login from dba_users;
+
+/* to exclude Oracle managed users in Oracle 11g */
+
+USERNAME NOT IN(
+		'ANONYMOUS',
+		'CTXSYS',
+		'DBSNMP',
+		'EXFSYS',
+		'LBACSYS',
+		'MDSYS',
+		'MGMT_VIEW',
+		'OLAPSYS',
+		'OWBSYS',
+		'ORDPLUGINS',
+		'ORDSYS',
+		'OUTLN',
+		'SI_INFORMTN_SCHEMA',
+		'SYS',
+		'SYSMAN',
+		'SYSTEM',
+		'TSMSYS',
+		'WK_TEST',
+		'WKSYS',
+		'WKPROXY',
+		'WMSYS',
+		'XDB',
+		'APEX_PUBLIC_USER',
+		'DIP',
+		'FLOWS_30000',
+		'FLOWS_FILES',
+		'MDDATA',
+		'ORACLE_OCM',
+		'SPATIAL_CSW_ADMIN_USR',
+		'SPATIAL_WFS_ADMIN_USR',
+		'XS$NULL',
+		'OWBSYS_AUDIT',
+		'ORDDATA',
+		'APEX_030200',
+		'APPQOSSYS',
+		'DVSYS',
+		'DVF'
+	)
+  
+  
+/* to exclude Oracle managed users in Oracle 12c */
+
+
+select username from dba_users where ORACLE_MAINTAINED <> 'Y';
+
