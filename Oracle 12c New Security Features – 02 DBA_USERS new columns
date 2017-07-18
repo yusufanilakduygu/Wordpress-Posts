@@ -1,0 +1,7 @@
+/* Query COMMON Column */
+
+column username format a30
+column Common format a5
+set pagesize 200
+select username,common from dba_users;
+
