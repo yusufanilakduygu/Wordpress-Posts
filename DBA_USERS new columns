@@ -1,3 +1,19 @@
+/* Query proxy_only_connect */
+
+column username format a30
+column proxy_only_connect  format a20
+set pagesize 200
+select username, proxy_only_connect from dba_users;
+
+alter user C##DEVMON PROXY ONLY CONNECT;
+ 
+select username, proxy_only_connect from dba_users where username='C##DEVMON';
+ 
+alter user C##DEVMON cancel PROXY ONLY CONNECT;
+
+select username, proxy_only_connect from dba_users where username='C##DEVMON';
+
+
 /* Query COMMON Column */
 
 column username format a30
