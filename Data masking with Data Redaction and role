@@ -4,9 +4,8 @@ create user rep_user identified by oracle;
 grant create session to rep_user;
 grant create table to rep_user;
  
-create app_user identified by oracle;
+create user app_user identified by oracle;
 grant create session to app_user;
- 
  
 create inq_user identified by oracle;
 grant create session to inq_user;
