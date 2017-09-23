@@ -1,0 +1,70 @@
+Connect sys as sysdba
+ 
+create user rep_user identified by oracle;
+grant create session to rep_user;
+grant create table to rep_user;
+ 
+create app_user identified by oracle;
+grant create session to app_user;
+ 
+ 
+create inq_user identified by oracle;
+grant create session to inq_user;
+ 
+create role redact_role;
+ 
+connect rep_user/oracle
+ 
+create table sample_table ( x number );
+insert into sample_table values (1);
+insert into sample_table values (2);
+grant select on sample_table to app_user;
+grant select on sample_table to inq_user;
+ 
+connect app_user/oracle
+ 
+select * from rep_user.sample_table;
+ 
+connect inq_user/oracle
+ 
+select * from rep_user.sample_table;
+ 
+ 
+connect sys as sysdba
+ 
+begin
+DBMS_REDACT.ADD_POLICY
+    (
+    object_schema => 'REP_USER',
+    object_name   => 'SAMPLE_TABLE',
+    policy_name   => 'POLICY1',
+    function_type =>  DBMS_REDACT.FULL,
+    expression    => '(''SYS_SESSION_ROLES'',''REDACT_ROLE'') = ''FALSE''' 
+    );
+    commit;
+END;
+/
+ 
+BEGIN  
+DBMS_REDACT.ALTER_POLICY
+    (
+    object_schema => 'REP_USER',
+    object_name   => 'SAMPLE_TABLE',
+    policy_name   => 'POLICY1',
+    column_name   => 'X',
+    action        => DBMS_REDACT.ADD_COLUMN
+);
+commit;
+end;
+/
+ 
+ 
+grant redact_role to app_user;
+ 
+connect app_user/oracle
+ 
+select * from rep_user.sample_table;
+ 
+connect inq_user/oracle
+ 
+select * from rep_user.sample_table;
