@@ -38,7 +38,7 @@ DBMS_REDACT.ADD_POLICY
     object_name   => 'SAMPLE_TABLE',
     policy_name   => 'POLICY1',
     function_type =>  DBMS_REDACT.FULL,
-    expression    => '(''SYS_SESSION_ROLES'',''REDACT_ROLE'') = ''FALSE''' 
+    expression    => 'SYS_CONTEXT(''SYS_SESSION_ROLES'',''REDACT_ROLE'') = ''FALSE''' 
     );
     commit;
 END;
