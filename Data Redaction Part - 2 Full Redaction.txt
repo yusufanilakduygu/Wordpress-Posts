@@ -1,0 +1,44 @@
+
+
+connect system/oracle
+
+create user USERA01 identified by oracle;
+grant create session to USERA01;
+grant select on SCOTT.EMP to USERA01;
+alter user USERA01 quota unlimited on users;
+create user USERB01 identified by oracle;
+grant create session to USERB01;
+grant select on SCOTT.EMP to USERB01;
+alter user USERB01 quota unlimited on users;
+
+column empno format 9999
+column sal format 99999
+column comm format 99999
+column deptno format 99999
+column mgr format 99999
+set pagesize 100
+set linesize 100
+
+select * from scott.emp;
+
+BEGIN
+DBMS_REDACT.add_policy(
+object_schema => 'SCOTT',
+object_name => 'EMP',
+column_name => 'SAL',
+policy_name => 'REDACT_SALARY_DATA',
+function_type => DBMS_REDACT.full,
+expression => '1=1'
+);
+END;
+/
+
+column OBJECT_OWNER format a10
+colum OBJECT_NAME format a10
+column POLICY_NAME format a20
+column EXPRESSION format a20
+Select OBJECT_OWNER,OBJECT_NAME,POLICY_NAME,EXPRESSION from REDACTION_POLICIES;
+
+connect USERA01/oracle;
+select * from scott.emp;
+
